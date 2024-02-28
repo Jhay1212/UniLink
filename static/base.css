@@ -6,10 +6,14 @@
     border: 0;
 
 }
-
+:root {
+    --base: #B5C0D0;
+    --secondary: #CCD3CA
+    --helper: #F5E8DD;
+}
 body {
     height: 100vh;
     width: 100vw;
     font-family: 'poppins';
-    background: #18202b;
+    background: #4a5566;
 }
