@@ -9,6 +9,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
     app.app_context().push()
+    print()
     return app
 
 app = create_app()

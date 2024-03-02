@@ -6,8 +6,8 @@ class User(db.Model):
     username =  db.Column(db.String(20), nullable=False, unique=True)
     email =  db.Column(db.String(120), unique=True)
     password = db.Column(db.String(60), nullable=False)
-    posts = db.relationship('Post', backref='author', lazy=True)
-    comments = db.relationship('Post', backref='author', lazy=True)
+    posts = db.relationship('Post', backref='user', lazy=True)
+ 
     
     def __repr__(self) -> str:
         return f'User {self.username}'.title()
@@ -19,10 +19,11 @@ class Post(db.Model):
     title = db.Column(db.String(60), nullable=False)
     body = db.Column(db.String(256), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    comments = db.relationship('Comment', backref='')
+    comments = db.relationship('Comment', backref='post')
 
 class Comment(db.Model):
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     content = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.now)
     
