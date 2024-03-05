@@ -1,0 +1,61 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<form action="" method="POST">
+    {{ forms.hidden_tag()}}
+
+   
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            {{ forms.username(class='validate')}}
+            <label for="first_name">{{ forms.username.label }}</label>
+            {% if forms.username.errors %}
+              {% for error in forms.username.errors %}
+              <small class="red-text darken-2">{{ error }}</small>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+
+          <div class="input-field col s6">
+            {{ forms.email(class='validate')}}
+
+            <label for="last_name">{{ forms.email.label }}</label>
+
+            {% if forms.email.errors %}
+            {% for error in forms.email.errors %}
+            <small class="red-text darken-2">{{ error }}</small>
+            {% endfor %}
+          {% endif %}
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="input-field col s12">
+            {{ forms.password(class='validate' )}}
+            <label for="password">Password</label>
+
+            {% if forms.password.errors %}
+              {% for error in forms.password.errors %}
+              <small class="red-text darken-2">{{ error }}</small>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-check">
+          {{ forms.remember.label }}
+          {{ forms.remember(class='waves-effect waves-dark')}}
+        </div>
+
+        {{ forms.submit(class='waves-effect waves-light btn ')}}
+
+    <!-- <input type="checkbox" name="remember" i?d="remember" value="True" class="btn teal"> -->
+    </div>
+        
+</form>
+
+{% endblock %}

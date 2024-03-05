@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<form action="" method="POST">
+    {{ forms.hidden_tag()}}
+
+   
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s6">
+            {{ forms.title(class='validate')}}
+            <label for="first_name">{{ forms.title.label }}</label>
+            {% if forms.title.errors %}
+              {% for error in forms.title.errors %}
+              <small class="red-text darken-2">{{ error }}</small>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+
+          <div class="input-field col s6">
+            {{ forms.body(class='validate')}}
+
+            <label for="last_name">{{ forms.body.label }}</label>
+
+            {% if forms.body.errors %}
+            {% for error in forms.body.errors %}
+            <small class="red-text darken-2">{{ error }}</small>
+            {% endfor %}
+          {% endif %}
+          </div>
+        </div>
+
+
+        
+        {{ forms.submit(class='waves-effect waves-light btn ')}}
+
+    <!-- <input type="checkbox" name="remember" i?d="remember" value="True" class="btn teal"> -->
+    </div>
+        
+</form>
+
+{% endblock %}

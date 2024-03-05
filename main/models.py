@@ -1,7 +1,15 @@
-from main import db
+from main import db, login_manager
 from datetime import datetime
+from flask_login import UserMixin
 
-class User(db.Model):
+
+
+@login_manager.user_loader
+def user_loader(email):
+    return User.query.filter_by(email=email).first()
+
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username =  db.Column(db.String(20), nullable=False, unique=True)
     email =  db.Column(db.String(120), unique=True)
@@ -11,6 +19,9 @@ class User(db.Model):
     
     def __repr__(self) -> str:
         return f'User {self.username}'.title()
+
+    def __str__(self):
+        return f'{self.username}'
     
 
 class Post(db.Model):
@@ -18,7 +29,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(60), nullable=False)
     body = db.Column(db.String(256), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now())
     comments = db.relationship('Comment', backref='post')
 
 class Comment(db.Model):

@@ -7,7 +7,7 @@
 
 }
 :root {
-    --base: #B5C0D0;
+    --base: #88a0c2;
     --secondary: #CCD3CA
     --helper: #F5E8DD;
 }
@@ -15,5 +15,7 @@ body {
     height: 100vh;
     width: 100vw;
     font-family: 'poppins';
-    background: #4a5566;
+    background: #5c5a5a;
+    /* background: #4a5566; */
 }
+

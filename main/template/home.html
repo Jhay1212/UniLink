@@ -1,8 +1,37 @@
 {% extends 'base.html' %}
+{% block title %}Zroc | Home {% endblock %}
+
 
 {% block content%}
-    <body>
+
+
+
+    {% for post in posts %}
+ 
+     <div class="container col s10 m8 offset-m2 l6 offset-l3">
+        <div class="card-panel grey lighten-5 z-depth-1">
+          <div class="row valign-wrapper">
+            <div class="col s2">
+              <img src="https://asuratoon.com/wp-content/uploads/2021/03/Group_1.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+            </div>
+            <div class="col s10">
+              <span class="black-text">
+                <h4>
+                    {{ post.author }}
+                    <sup>{{ post.date.strftime('%M/%d/%Y %H:%m')}}</sup>
+                </h4>
+                    <p>
+                        {{ post.content }}
+                    </p>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    </div>
+    {% endfor %}
         
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque tempore aliquid impedit dicta dignissimos assumenda, placeat provident voluptas sequi cupiditate laboriosam ipsam quo, rem adipisci veritatis vel aut corporis dolorum aliquam! Rem molestiae dolor quibusdam quo aut recusandae tenetur natus quia nisi eius dolorem maiores id aspernatur ad, animi illum. Deserunt, dignissimos sint. Saepe eius ipsum sint laudantium nobis eum nemo, vel soluta ratione beatae pariatur quibusdam perferendis veritatis autem quos culpa debitis molestias maxime nostrum dolorem quisquam! Perferendis repudiandae cupiditate veniam unde velit laudantium quo sint magni molestiae voluptatum error nemo deserunt, placeat aliquam id temporibus esse, fugiat totam.</p>
-    </body>
+    
 {% endblock %}
