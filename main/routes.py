@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for,session
-from flask_login import login_user
+from flask_login import login_user, login_required, logout_user
 from main import app
 from main.forms import RegisterForm, LoginForm, PostForm
 from .models import User, Post
@@ -9,20 +9,9 @@ from main import db
 
 @app.route('/')
 def home():
-    posts = [{
-        'content': 'loremn12',
-        'author': 'zeef',
-        'date': datetime.now(),
-        'image': 'ts'
-        
-    },
-    {
-        'content': 'frieren',
-        'author': 'zeef0',
-        'date': datetime.now()
-        
-    }]
-    print(session)
+    posts = Post.query.all()
+
+    
     return render_template('home.html', posts=posts)
 
 
@@ -55,16 +44,21 @@ def login():
     if forms.validate_on_submit():
         user = User.query.filter_by(email=forms.email.data).first()
         if user and bcrypt.check_password_hash(user.password, forms.password.data):
-            login_user(user, remember=forms.remember.data)
+            login_user(user, remember=True)
             print('Login succesfully')
             return redirect(url_for('home'))
     print(forms.errors)
     return render_template('login.html', forms=forms)
 
 
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
 
 
 @app.route('/create/post', methods=['POST', 'GET'])
+@login_required
 def create_post():
     forms = PostForm()
     if forms.validate_on_submit():

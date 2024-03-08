@@ -17,11 +17,16 @@
             <div class="col s10">
               <span class="black-text">
                 <h4>
-                    {{ post.author }}
-                    <sup>{{ post.date.strftime('%M/%d/%Y %H:%m')}}</sup>
+                  {{ post }} <br>
                 </h4>
+                    <h2>
+                      {{ post.create_user.username }}
+
+                    </h2>
+                    <sup>{{ post.date_posted.strftime('%M/%d/%Y %H:%m')}}</sup>
+                {{ post.title }}
                     <p>
-                        {{ post.content }}
+                        {{ post.body }}
                     </p>
               </span>
             </div>
