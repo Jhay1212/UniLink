@@ -11,6 +11,7 @@
      <div class="container col s10 m8 offset-m2 l6 offset-l3">
         <div class="card-panel grey lighten-5 z-depth-1">
           <div class="row valign-wrapper">
+            <a href="{{url_for('single_post', pk=post.id)}}">
             <div class="col s2">
               <img src="https://asuratoon.com/wp-content/uploads/2021/03/Group_1.png" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
             </div>
@@ -20,7 +21,7 @@
                   {{ post }} <br>
                 </h4>
                     <h2>
-                      {{ post.create_user.username }}
+                      {{ post.user }}
 
                     </h2>
                     <sup>{{ post.date_posted.strftime('%M/%d/%Y %H:%m')}}</sup>
@@ -33,6 +34,7 @@
           </div>
         </div>
       </div>
+    </a>
     
     
     </div>

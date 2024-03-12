@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+<div class="container pink darker-3 p-4">
+
+    <div class="card">
+
+        <h2>
+            {{ post.create_user }}
+            
+        </h2>
+        <p>
+            
+            {{ post.title  }}
+        </p>
+        <p>
+            {{ post.body }}
+        </p>
+        <small>
+            {{ post.date_posted }}
+            
+        </small>
+    </div>
+    
+</div>
+    {% if current_user == post.user %}
+    
+    <button class="btn green">
+        <a href="{{ url_for('edit_post', pk=post.id)}}">Edit</a>
+    </button>
+
+{% endif %}
+
+{% endblock %}

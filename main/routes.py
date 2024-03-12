@@ -1,15 +1,20 @@
-from flask import render_template, flash, redirect, url_for,session
-from flask_login import login_user, login_required, logout_user
-from main import app
+from flask import render_template, flash, redirect, url_for,session, abort, request
+from flask_login import login_user, login_required, logout_user, current_user
+from flask_mail import Message
+from sqlalchemy.sql.expression import func
+from main import app, db,  mail
 from main.forms import RegisterForm, LoginForm, PostForm
 from .models import User, Post
 from main import bcrypt
-from datetime import datetime
-from main import db
+
+
 
 @app.route('/')
 def home():
     posts = Post.query.all()
+    # x = db.Query.order_by(Post.title).order_by(func.random())
+    # posts = x
+    
 
     
     return render_template('home.html', posts=posts)
@@ -27,7 +32,10 @@ def register():
     if forms.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(forms.password.data)
         user = User(username=forms.username.data, email=forms.email.data, password=hashed_password)
-
+        with mail.connect() as conn:
+            msg = Message(f'Account created. Don\'t worry youre account is not hacked im just practicing coding by sending emails', sender='justpracticingflask', recipients=[forms.email.data], body=f'Account created for {forms.username.data}')
+            mail.send(msg)
+        
         db.session.add(user)
         db.session.commit()
         flash(f'account created {forms.username.data}')
@@ -66,6 +74,42 @@ def create_post():
         post = Post(user_id=session['_user_id'], title=forms.title.data, body=forms.body.data)
         db.session.add(post)
         db.session.commit()
+    
 
         return redirect(url_for('home'))
     return render_template('create_post.html', forms=forms)
+
+
+
+@app.route('/post/<pk>', methods=['GET', 'POST'])
+def single_post(pk):
+    post = Post.query.get(pk)
+    return render_template('single_post.html', post=post)
+
+
+@app.route('/post/<pk>/edit', methods=['GET', 'POST', 'PATCH'])
+def edit_post(pk):
+    post = Post.query.get(pk)
+    if current_user != post.user:
+            abort(403)
+    forms = PostForm()
+    if forms.validate_on_submit():
+        post = Post(user_id=session['_user_id'], title=forms.title.data, body=forms.body.data)
+        db.session.add(post)
+        db.session.commit()
+        print('post succesfully edited')
+        return redirect(url_for('home'))
+    elif request.method == "GET":
+        print(post)
+        print(forms)
+        return render_template('edit_post.html', post=post, forms=forms)
+
+
+@app.route('/post/<pk>/delete')
+def delete_post(pk):
+
+    # forms = DeletePost()
+    post = Post.query.get(pk)
+    db.session.remove(post)
+    db.session.commit()
+    return redirect(url_for('home'))
