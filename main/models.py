@@ -29,6 +29,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     title = db.Column(db.String(60), nullable=False)
     body = db.Column(db.String(256), nullable=False)
+    hashtag = db.Column(db.String(24), default=None)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now())
     comments = db.relationship('Comment', backref='post')
 

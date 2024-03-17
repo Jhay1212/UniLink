@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_alembic import Alembic
+
 
 def create_app():
 
@@ -24,9 +26,13 @@ def create_db():
 
 app = create_app()
 bcrypt = Bcrypt(app)
+alembic = Alembic()
 login_manager = LoginManager(app)
+
+
 login_manager.init_app(app)
 db = create_db()
+alembic.init_app(app)
 
 
    

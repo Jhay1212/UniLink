@@ -89,7 +89,7 @@ def single_post(pk):
 
 @app.route('/post/<pk>/edit', methods=['GET', 'POST', 'PATCH'])
 def edit_post(pk):
-    post = Post.query.get(pk)
+    post = Post.query.get_or_404(pk)
     if current_user != post.user:
             abort(403)
     forms = PostForm()
@@ -105,11 +105,14 @@ def edit_post(pk):
         return render_template('edit_post.html', post=post, forms=forms)
 
 
+
+
 @app.route('/post/<pk>/delete')
 def delete_post(pk):
-
-    # forms = DeletePost()
-    post = Post.query.get(pk)
-    db.session.remove(post)
+    
+    post = Post.query.get_or_404(pk)
+    if current_user != post.user:
+        abort(403)
+    db.session.delete(post)
     db.session.commit()
-    return redirect(url_for('home'))
+    return render_template('post_deleted.html')

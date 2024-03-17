@@ -29,7 +29,6 @@ class RegisterForm(FlaskForm):
         
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[Length(min=6, max=16), DataRequired()])
-    email = EmailField('Email', validators=[DataRequired(),Email() ])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me', default=False)
     submit = SubmitField('Login')
@@ -42,4 +41,5 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[Length(min=0, max=120), DataRequired()])
     body = StringField("What's in your mind.", validators=[Length(min=1, max=256), DataRequired()])
+    hashtag = StringField("Hashtag", validators=[Length(max=16)], default=None)
     submit = SubmitField("Post")
