@@ -41,5 +41,5 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[Length(min=0, max=120), DataRequired()])
     body = StringField("What's in your mind.", validators=[Length(min=1, max=256), DataRequired()])
-    hashtag = StringField("Hashtag", validators=[Length(max=16)], default=None)
+    hashtag = StringField("Hashtag", validators=[Length(max=80)], default=None)
     submit = SubmitField("Post")

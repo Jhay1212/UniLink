@@ -50,7 +50,7 @@ def register():
 def login():
     forms = LoginForm()
     if forms.validate_on_submit():
-        user = User.query.filter_by(email=forms.email.data).first()
+        user = User.query.filter_by(username=forms.username.data).first()
         if user and bcrypt.check_password_hash(user.password, forms.password.data):
             login_user(user, remember=True)
             print('Login succesfully')
@@ -71,7 +71,7 @@ def create_post():
     forms = PostForm()
     if forms.validate_on_submit():
         
-        post = Post(user_id=session['_user_id'], title=forms.title.data, body=forms.body.data)
+        post = Post(user_id=session['_user_id'], title=forms.title.data, hashtag=forms.hashtag.data, body=forms.body.data)
         db.session.add(post)
         db.session.commit()
     

@@ -19,11 +19,13 @@
               <span class="black-text">
                 <h4>
                   {{ post }} <br>
-                  <!-- {% if post.hashtag %}
+                  {% if post.hashtag %}
                   <h2 class="aquamarine">
-                    {{ post.hashtag }}
+                    {% for hashtag in post.hashtag.split(',') %}
+                      <small class="">#{{ hashtag }}</small>
+                    {% endfor %}
                   </h2>
-                  {% endif %} -->
+                  {% endif %}
                 </h4>
                     <h2>
                       {{ post.user }}

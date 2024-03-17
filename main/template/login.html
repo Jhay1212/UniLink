@@ -19,18 +19,6 @@
           </div>
 
 
-          <div class="input-field col s6">
-            {{ forms.email(class='validate')}}
-
-            <label for="last_name">{{ forms.email.label }}</label>
-
-            {% if forms.email.errors %}
-            {% for error in forms.email.errors %}
-            <small class="red-text darken-2">{{ error }}</small>
-            {% endfor %}
-          {% endif %}
-          </div>
-        </div>
 
 
         <div class="row">
@@ -48,11 +36,11 @@
 
         <div class="row">
           <div class="input-field col s12">
-            {{ forms.remember_me(class='validate' )}}
-            <label for="remember_me">Remember Me</label>
+            {{ forms.remember(class='validate' )}}
+            <label for="remember">Remember Me</label>
 
-            {% if forms.remember_me.errors %}
-              {% for error in forms.remember_me.errors %}
+            {% if forms.remember.errors %}
+              {% for error in forms.remember.errors %}
               <small class="red-text darken-2">{{ error }}</small>
               {% endfor %}
             {% endif %}

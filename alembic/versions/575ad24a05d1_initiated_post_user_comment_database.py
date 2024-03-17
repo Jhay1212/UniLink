@@ -19,6 +19,9 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
+    # sa.
+    # op.add_column("Post", 
+    #               sa.Column('Tag'))
     pass
 
 
