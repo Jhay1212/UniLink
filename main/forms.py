@@ -43,3 +43,8 @@ class PostForm(FlaskForm):
     body = StringField("What's in your mind.", validators=[Length(min=1, max=256), DataRequired()])
     hashtag = StringField("Hashtag", validators=[Length(max=80)], default=None)
     submit = SubmitField("Post")
+
+
+class CommentForm(FlaskForm):
+    content = StringField('Add Comment', validators=[Length(min=1, max=100), DataRequired()])
+    submit = SubmitField("Comment")

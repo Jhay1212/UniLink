@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     email =  db.Column(db.String(120), unique=True)
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='user', lazy=True)
- 
+    comments = db.relationship('Comment', backref='author', lazy=True)
     
     def __repr__(self) -> str:
         return f'User {self.username}'.title()
@@ -30,16 +30,24 @@ class Post(db.Model):
     title = db.Column(db.String(60), nullable=False)
     body = db.Column(db.String(256), nullable=False)
     hashtag = db.Column(db.String(80), default=None)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    comments = db.relationship('Comment', backref='post')
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    comments = db.relationship('Comment', backref='post', lazy=True)
 
     def __str__(self) -> str:
         return self.title
     
+
+    @property
+    def comments(self):
+        q = Post.query.join(Comment).all()
+        return q
     
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     content = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.now)
     
+    def __str__(self) -> str:
+        return self.content

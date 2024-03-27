@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <form action="" method="post"class="form-container">
+        <legend class="h2 blue">Create Comment</legend>
+        {{ forms.hidden_tag() }}
+        {{ forms.content }}
+        {{ forms.submit }}
+    </form>
+</div>
+{% endblock %}

@@ -21,6 +21,16 @@
             {{ post.date_posted }}
             
         </small>
+        {% for comment in post.comments %}
+        <h4>
+            {{ comment.content }}
+            
+        </h4>
+        {% endfor %}
+        <h1>
+
+            {{ post.Comment }}
+        </h1>
     </div>
     
 </div>
@@ -29,6 +39,8 @@
     <button class="btn green">
         <a href="{{ url_for('edit_post', pk=post.id)}}">Edit</a>
     </button>
+
+    <a href="{{ url_for('create_comment', pk=post.id )}}">Comment</a>
 
 {% endif %}
 
